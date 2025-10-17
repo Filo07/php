@@ -8,7 +8,8 @@ $conn=mysqli_connect($host,$user,$pass,$dbname);
 
 if(isset($_POST['btn'])){
     $texten=$_POST['txt'];
-    $sql="INSERT INTO linx(url) VALUES('$texten')";
+    $desc=$_POST['desc'];
+    $sql="INSERT INTO linx(url, description) VALUES('$texten', '$desc')";
     $result=mysqli_query($conn,$sql);
 
 }
@@ -25,14 +26,15 @@ if(isset($_POST['btn'])){
     <form action="" method="post">
         <input type="text" name="txt" placeholder="Enter URL">
         <input type="submit" name="btn" value="Submit">
+        <input type="text" name="desc" placeholder="Enter Description">
     </form>
     <?php
     $sql="SELECT * FROM linx";
     $result=mysqli_query($conn,$sql);
 
-    while($row=mysqli_fetch_assoc($result)){
-        echo "<h1>" .$row['url']."</h1>";
-    }
-    ?>
+    while($row=mysqli_fetch_assoc($result)){  ?>
+    
+        <a href="<?=$row['url']; ?>"><?=$row['description']; ?></a><br>
+    <?php } ?>
 </body>
 </html>
